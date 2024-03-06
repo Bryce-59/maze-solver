@@ -17,7 +17,7 @@ public class BreadthFirstSearch extends SearchAlgorithm
         reset();
     }
     
-    @inheritdoc
+    /** {@inheritDoc} */
     protected List<Maze.Node> getNext() {
         return ((ArrayDeque<List<Maze.Node>>) fringe).pollFirst();
     }

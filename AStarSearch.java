@@ -27,7 +27,7 @@ public class AStarSearch extends SearchAlgorithm
         fringe = new PriorityQueue<>(cmp);
     }
     
-    @inheritdoc
+    /** {@inheritDoc} */
     protected List<Maze.Node> getNext() {
         return ((PriorityQueue<List<Maze.Node>>) fringe).poll();
     }

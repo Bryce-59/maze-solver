@@ -18,7 +18,7 @@ public class DepthFirstSearch extends SearchAlgorithm
         reset();
     }
     
-    @inheritdoc
+    /** {@inheritDoc} */
     protected List<Maze.Node> getNext() {
         return ((ArrayDeque<List<Maze.Node>>) fringe).pollLast();
     }
