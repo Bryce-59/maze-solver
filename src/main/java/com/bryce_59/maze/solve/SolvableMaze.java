@@ -85,12 +85,12 @@ public class SolvableMaze extends Maze
     {
         super(numCol, numRows);
         setAlgorithm(search);
-        // if (startNode != null) {
-        //     setStartPoint(startNode);
-        // }
-        // if (endNode != null) {
-        //     setEndPoint(endNode);
-        // }
+        if (startNode != null) {
+            setStartPoint(startNode);
+        }
+        if (endNode != null) {
+            setEndPoint(endNode);
+        }
     }
 
     /**
@@ -100,12 +100,12 @@ public class SolvableMaze extends Maze
     {
         super(src);
         setAlgorithm(src.search);
-        // if (src.startNode != null) {
-        //     setStartPoint(src.startNode);
-        // }
-        // if (endNode != null) {
-        //     setEndPoint(src.endNode);
-        // }
+        if (src.startNode != null) {
+            setStartPoint(src.startNode);
+        }
+        if (endNode != null) {
+            setEndPoint(src.endNode);
+        }
     }
     
     // *Public Methods*
@@ -233,14 +233,14 @@ public class SolvableMaze extends Maze
      * @param  numRows the number of rows
      * @throws IllegalArgumentException  if numCol < 0 or numRows < 0
      */
-    public void setDim(int numCol, int numRows) {
-        super.setDim(numCol, numRows);
-        // if (startNode != null) {
-        //     setStartPoint(startNode.getX(), startNode.getY());
-        // }
-        // if (endNode != null) {
-        //     setEndPoint(numCol-1, numRows-1);
-        // }
+    public void resize(int numCol, int numRows) {
+        super.resize(numCol, numRows);
+        if (startNode != null) {
+            setStartPoint(startNode.getX(), startNode.getY());
+        }
+        if (endNode != null) {
+            setEndPoint(numCol-1, numRows-1);
+        }
     }
 
     /**

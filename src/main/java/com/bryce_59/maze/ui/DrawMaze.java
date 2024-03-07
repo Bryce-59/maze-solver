@@ -432,7 +432,7 @@ public class DrawMaze extends JPanel {
         else {
             boolean inRange = true;            
             if (inRange) {
-                maze.setDim  (Integer.parseInt(textField1.getText()), Integer.parseInt(textField2.getText()));
+                maze.resize  (Integer.parseInt(textField1.getText()), Integer.parseInt(textField2.getText()));
                 maze.generateMaze();
                 maze.setStartPoint(0,0);
                 maze.setEndPoint(maze.getCols()-1, maze.getRows()-1);
