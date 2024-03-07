@@ -11,18 +11,16 @@ import com.bryce_59.maze.create.Maze;
  * @author Bryce Richardson
  * @version 26-02-2024
  */
-public class DepthFirstSearch extends SearchAlgorithm
-{
+public class DepthFirstSearch extends SearchAlgorithm {
 
     /**
      * Constructor for objects of class DepthFirstSearch
      */
-    public DepthFirstSearch()
-    {
+    public DepthFirstSearch() {
         fringe = new ArrayDeque<>();
         reset();
     }
-    
+
     /** {@inheritDoc} */
     protected List<Maze.Node> getNext() {
         return ((ArrayDeque<List<Maze.Node>>) fringe).pollLast();
