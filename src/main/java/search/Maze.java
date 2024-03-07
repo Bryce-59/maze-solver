@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 /**
- * Write a description of class Maze here.
- * a
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Bryce-59
+ * @version 06-03-2024
  */
 public class Maze
 {
