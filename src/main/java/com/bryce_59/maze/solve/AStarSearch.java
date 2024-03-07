@@ -1,6 +1,10 @@
+package com.bryce_59.maze.solve;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
+
+import com.bryce_59.maze.create.Maze;
 /**
  * AStarSearch
  * 

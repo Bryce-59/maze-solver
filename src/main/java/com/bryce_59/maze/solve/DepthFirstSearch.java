@@ -1,5 +1,10 @@
+package com.bryce_59.maze.solve;
+
 import java.util.ArrayDeque;
 import java.util.List;
+
+import com.bryce_59.maze.create.Maze;
+
 /**
  * DepthFirstSearch
  * 

@@ -1,11 +1,16 @@
+package com.bryce_59.maze.solve;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import com.bryce_59.maze.create.*;
+
 /**
  * Abstract class SearchAlgorithm
  * 
  * @author Bryce Richardson
- * @version 26-02-2024
+ * @version 06-03-2024
  */
 public abstract class SearchAlgorithm
 {

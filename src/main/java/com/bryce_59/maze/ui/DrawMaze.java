@@ -1,9 +1,14 @@
+package com.bryce_59.maze.ui;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 import javax.swing.*;
+
+import com.bryce_59.maze.create.*;
+import com.bryce_59.maze.solve.*;
 
 public class DrawMaze extends JPanel {
    private static final int RECT_X = 20;
@@ -120,7 +125,7 @@ public class DrawMaze extends JPanel {
                     
                     // the vertical edges 
                     if (j < numCol - 1 && !board[i][j].hasEdge(board[i][j+1])) {
-                        g.drawLine(startX + sizeOfCell, startY, startX + sizeOfCell, startY + sizeOfCell);     
+                        g.drawLine(startX + sizeOfCell, startY, startX + sizeOfCell, startY + sizeOfCell);   
                     }
                 }
             }
@@ -427,8 +432,10 @@ public class DrawMaze extends JPanel {
         else {
             boolean inRange = true;            
             if (inRange) {
-                maze.resize(Integer.parseInt(textField1.getText()), Integer.parseInt(textField2.getText()));
+                maze.setDim  (Integer.parseInt(textField1.getText()), Integer.parseInt(textField2.getText()));
                 maze.generateMaze();
+                maze.setStartPoint(0,0);
+                maze.setEndPoint(maze.getCols()-1, maze.getRows()-1);
                 maze.reset();
             }
         }

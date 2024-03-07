@@ -1,8 +1,12 @@
-import java.awt.*;
+package com.bryce_59.maze.solve;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
+
+import com.bryce_59.maze.create.*;
+
 /**
  * Write a description of class SolvableMaze here.
  * 
@@ -63,7 +67,7 @@ public class SolvableMaze extends Maze
      * @param  startNode the starting position
      * @param  endNode  the ending location
      */
-    protected SolvableMaze(int numCol, int numRows, Node startNode, Node endNode)
+    protected SolvableMaze(int numCol, int numRows, Maze.Node startNode, Maze.Node endNode)
     {
         this(numCol, numRows, startNode, endNode, null);
     }
@@ -77,32 +81,31 @@ public class SolvableMaze extends Maze
      * @param  endNode  the ending location
      * @param search  the SearchAlgorithm
      */
-    protected SolvableMaze(int numCol, int numRows, Node startNode, Node endNode, SearchAlgorithm search)
+    protected SolvableMaze(int numCol, int numRows, Maze.Node startNode, Maze.Node endNode, SearchAlgorithm search)
     {
         super(numCol, numRows);
         setAlgorithm(search);
-        if (startNode != null) {
-            setStartPoint(startNode);
-        }
-        if (endNode != null) {
-            setEndPoint(endNode);
-        }
+        // if (startNode != null) {
+        //     setStartPoint(startNode);
+        // }
+        // if (endNode != null) {
+        //     setEndPoint(endNode);
+        // }
     }
 
     /**
-     * Constructor for objects of class SolvableMaze
+     * Copy constructor for objects of class SolvableMaze
      */
-    protected SolvableMaze(SolvableMaze src)
+    public SolvableMaze(SolvableMaze src)
     {
         super(src);
-
         setAlgorithm(src.search);
-        if (src.startNode != null) {
-            setStartPoint(src.startNode);
-        }
-        if (endNode != null) {
-            setEndPoint(src.endNode);
-        }
+        // if (src.startNode != null) {
+        //     setStartPoint(src.startNode);
+        // }
+        // if (endNode != null) {
+        //     setEndPoint(src.endNode);
+        // }
     }
     
     // *Public Methods*
@@ -210,7 +213,7 @@ public class SolvableMaze extends Maze
      * 
      * @return the current path
      */
-    protected List<Maze.Node> getPath() {
+    public List<Maze.Node> getPath() {
         return path;
     }
 
@@ -219,7 +222,7 @@ public class SolvableMaze extends Maze
      * 
      * @return the visited list
      */
-    protected Set<Maze.Node> getVisited() {
+    public Set<Maze.Node> getVisited() {
         return visited;
     }
 
@@ -230,16 +233,16 @@ public class SolvableMaze extends Maze
      * @param  numRows the number of rows
      * @throws IllegalArgumentException  if numCol < 0 or numRows < 0
      */
-    public void resize(int numCol, int numRows) {
-        super.resize(numCol, numRows);
-        if (startNode != null) {
-            setStartPoint(startNode.getX(), startNode.getY());
-        }
-        if (endNode != null) {
-            setEndPoint(numCol-1, numRows-1);
-        }
+    public void setDim(int numCol, int numRows) {
+        super.setDim(numCol, numRows);
+        // if (startNode != null) {
+        //     setStartPoint(startNode.getX(), startNode.getY());
+        // }
+        // if (endNode != null) {
+        //     setEndPoint(numCol-1, numRows-1);
+        // }
     }
-    
+
     /**
      * Set the end point
      * 
@@ -247,10 +250,10 @@ public class SolvableMaze extends Maze
      * @throws NullPointerException if node is null
      * @throws IllegalArgumentException if node is not valid
      */
-    protected void setEndPoint(Maze.Node endNode) {
+    public void setEndPoint(Maze.Node endNode) {
         // preconditions
         if (endNode == null) {
-            throw new NullPointerException("Node cannot be null");
+            throw new NullPointerException("Maze.Node cannot be null");
         }
         else if (endNode != null && !hasNode(endNode)) {
             throw new IllegalArgumentException("Maze must contain endpoint");
@@ -260,7 +263,7 @@ public class SolvableMaze extends Maze
         this.endNode = endNode;
         mustReset = true;
     }
-    
+
     /**
      * Set the start point
      * 
@@ -268,10 +271,10 @@ public class SolvableMaze extends Maze
      * @throws NullPointerException  if node is null
      * @throws IllegalArgumentException if node is not valid
      */
-    protected void setStartPoint(Maze.Node startNode) {
+    public void setStartPoint(Maze.Node startNode) {
         // preconditions
          if (startNode == null) {
-            throw new NullPointerException("Node cannot be null");
+            throw new NullPointerException("Maze.Node cannot be null");
         }
         else if (startNode != null && !hasNode(startNode)) {
             throw new IllegalArgumentException("Maze must contain startpoint");
@@ -281,6 +284,29 @@ public class SolvableMaze extends Maze
         this.startNode = startNode;
         mustReset = true;
     }
+
+    // *Private Methods*
+
+    /**
+     * Verify that a node exists within the Maze.
+     * 
+     * @param current  the node to verify
+     * @return  true if the Maze contains Maze.Node else false
+     * @throws NullPointerException  if Maze.Node is null
+     */
+    private boolean hasNode(Maze.Node current) {
+        if (current == null) {
+            throw new NullPointerException("Maze.Node cannot be null");
+        }
+                
+        int x = current.getX();
+        int y = current.getY();
+        if (y < 0 || y >= board.length || x < 0 || x >= board[0].length) {
+            return false;
+        }
+        
+        return board[y][x] != null && board[y][x].equals(current);
+    }
     
     // instance variables
     protected Maze.Node startNode;
@@ -288,7 +314,7 @@ public class SolvableMaze extends Maze
     
     protected SearchAlgorithm search = null;
     protected Set<Maze.Node> visited = new HashSet<>();
-    protected List<Maze.Node> path = new ArrayList();
+    protected List<Maze.Node> path = new ArrayList<>();
     
     protected boolean mustReset = true;
 }
