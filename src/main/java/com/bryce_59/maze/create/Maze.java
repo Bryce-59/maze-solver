@@ -6,118 +6,36 @@ import java.util.Set;
 
 /**
  * @author Bryce-59
- * @version 06-03-2024
+ * @version 18-03-2024
  */
-public class Maze {
+public interface Maze {
     // *Constructors*
-
-    /**
-     * Constructor for objects of class Maze
-     */
-    public Maze() {
-        this(DEFAULT_GENERATOR);
-    }
-
-    /**
-     * Constructor for objects of class Maze
-     * 
-     * @param generator the maze-generation algorithm to use
-     */
-    public Maze(MazeGenerator generator) {
-        this(DEFAULT_COL, DEFAULT_ROWS, generator);
-    }
-
-    /**
-     * Constructor for objects of class Maze
-     * 
-     * @param numCol  the number of columns
-     * @param numRows the number of rows
-     */
-    public Maze(int numCol, int numRows) {
-        this(numCol, numRows, DEFAULT_GENERATOR);
-    }
-
-    /**
-     * Constructor for objects of class Maze
-     * 
-     * @param numCol    the number of columns
-     * @param numRows   the number of rows
-     * @param generator the maze-generation algorithm to use
-     */
-    public Maze(int numCol, int numRows, MazeGenerator generator) {
-        this.generator = generator;
-        resize(numCol, numRows);
-    }
-
-    /**
-     * Copy constructor for objects of class Maze
-     * 
-     * @param src the maze to copy
-     */
-    public Maze(Maze src) {
-        this.generator = src.generator;
-        this.board = src.getBoard();
-    }
-
-    // *Public Methods*
 
     /**
      * Generate a new Maze
      */
-    public void generateMaze() {
-        resize(board[0].length, board.length);
-    }
+    public void generateMaze();
 
     /**
      * Get a copy of the Maze board
      * 
      * @return a copy of the board
      */
-    public Maze.Node[][] getBoard() {
-        int numRows = this.board.length;
-        int numCol = numRows > 0 ? this.board[0].length : 0;
-
-        // initialize board copy
-        Maze.Node[][] ret = new Maze.Node[numRows][];
-        for (int i = 0; i < numRows; i++) {
-            ret[i] = new Maze.Node[numCol];
-            for (int j = 0; j < numCol; j++) {
-                ret[i][j] = new Node(j, i);
-            }
-        }
-
-        // fill board copy
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCol; j++) {
-                if (i < numRows - 1 && this.board[i][j].hasEdge(this.board[i + 1][j])) {
-                    ret[i][j].addEdge(ret[i + 1][j]);
-                }
-                if (j < numCol - 1 && this.board[i][j].hasEdge(this.board[i][j + 1])) {
-                    ret[i][j].addEdge(ret[i][j + 1]);
-                }
-                ret[i][j].setDepth(this.board[i][j].getDepth());
-            }
-        }
-        return ret;
-    }
+    public Maze.Node[][] getBoard();
 
     /**
      * Get the number of columns in the Maze
      * 
      * @return the number of columns
      */
-    public int getCols() {
-        return board[0].length;
-    }
+    public int getCols();
 
     /**
      * Get the number of rows in the Maze
      * 
      * @return the number of rows
      */
-    public int getRows() {
-        return board.length;
-    }
+    public int getRows();
 
     /**
      * Initialize the Maze board
@@ -126,22 +44,7 @@ public class Maze {
      * @param numRows the number of rows
      * @throws IllegalArgumentException if numCol < 0 or numRows < 0
      */
-    public void resize(int numCol, int numRows) {
-        if (numCol <= 0 || numRows <= 0) {
-            throw new IllegalArgumentException("Invalid dimensions");
-        }
-
-        this.board = generator.generateMaze(numCol, numRows);
-    }
-
-    // *Instance Variables*
-    protected Maze.Node[][] board;
-    private MazeGenerator generator;
-
-    // SETTINGS
-    private static final int DEFAULT_COL = 10;
-    private static final int DEFAULT_ROWS = 10;
-    private static final MazeGenerator DEFAULT_GENERATOR = new GrowingTreeGenerator(0.7);
+    public void resize(int numCol, int numRows);
 
     /**
      * Maze.Node class for Maze objects.
@@ -149,7 +52,7 @@ public class Maze {
      * @author Bryce-59
      * @version 26-02-2024
      */
-    public static class Node {
+    static class Node {
         // *Constructors*
 
         /**
@@ -164,23 +67,6 @@ public class Maze {
         }
 
         // *Public Methods*
-
-        /**
-         * Add another Maze.Node object to the edge set of this Maze.Node
-         * 
-         * @param other the edge to add
-         */
-        public void addEdge(Maze.Node other) {
-            // preconditions
-            if (other == null) {
-                throw new NullPointerException("Cannot add a null edge");
-            }
-
-            // add edge
-            if (!hasEdge(other)) {
-                edges.put(other, 1);
-            }
-        }
 
         /**
          * Return the set of edges for the Maze.Node
@@ -240,6 +126,23 @@ public class Maze {
         }
 
         // *Protected Methods*
+
+        /**
+         * Add another Maze.Node object to the edge set of this Maze.Node
+         * 
+         * @param other the edge to add
+         */
+        protected void addEdge(Maze.Node other) {
+            // preconditions
+            if (other == null) {
+                throw new NullPointerException("Cannot add a null edge");
+            }
+
+            // add edge
+            if (!hasEdge(other)) {
+                edges.put(other, 1);
+            }
+        }
 
         /**
          * Modify the depth of the Node

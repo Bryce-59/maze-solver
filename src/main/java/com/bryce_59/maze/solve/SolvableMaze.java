@@ -11,9 +11,9 @@ import com.bryce_59.maze.create.*;
  * Write a description of class SolvableMaze here.
  * 
  * @author Bryce-59
- * @version 06-03-2024
+ * @version 18-03-2024
  */
-public class SolvableMaze extends Maze {
+public class SolvableMaze extends SimpleMaze implements Solvable {
     // *Constructors*
 
     /**
@@ -101,28 +101,33 @@ public class SolvableMaze extends Maze {
     }
 
     // *Public Methods*
+    
+    /** {@inheritDoc} */
+    public List<Maze.Node> getPath() {
+        return path;
+    }
 
-    /**
-     * Get the start point
-     * 
-     * @return the start point
-     */
+    /** {@inheritDoc} */
+    public Maze.Node getEndPoint() {
+        return startNode;
+    }
+
+    /** {@inheritDoc} */
     public Maze.Node getStartPoint() {
         return startNode;
     }
 
-    /**
-     * Verify if the Maze is in a completed state
-     * 
-     * @return true if solved else false
-     */
+    /** {@inheritDoc} */
+    public Set<Maze.Node> getVisited() {
+        return visited;
+    }
+
+    /** {@inheritDoc} */
     public boolean isSolved() {
         return search != null && search.isSolved();
     }
 
-    /**
-     * Reset the Maze to its base state
-     */
+    /** {@inheritDoc} */
     public void reset() {
         if (search != null) {
             search.reset();
@@ -133,23 +138,24 @@ public class SolvableMaze extends Maze {
         mustReset = false;
     }
 
-    /**
-     * Set the SearchAlgorithm
-     * 
-     * @param search the SearchAlgorithm
-     */
+    /** {@inheritDoc} */
+    public void resize(int numCol, int numRows) {
+        super.resize(numCol, numRows);
+        if (startNode != null) {
+            setStartPoint(startNode.getX(), startNode.getY());
+        }
+        if (endNode != null) {
+            setEndPoint(numCol - 1, numRows - 1);
+        }
+    }
+
+    /** {@inheritDoc} */
     public void setAlgorithm(SearchAlgorithm search) {
         this.search = search;
         mustReset = true;
     }
 
-    /**
-     * Set the end point
-     * 
-     * @param x the x-position
-     * @param y the y-position
-     * @throws IllegalArgumentException if x or y are out of range
-     */
+    /** {@inheritDoc} */
     public void setEndPoint(int x, int y) {
         if (y < 0 || y >= getRows() || x < 0 || x >= getCols()) {
             throw new IllegalArgumentException("Indicies must be in range");
@@ -158,13 +164,19 @@ public class SolvableMaze extends Maze {
         setEndPoint(board[y][x]);
     }
 
-    /**
-     * Set the start point
-     * 
-     * @param x the x-position
-     * @param y the y-position
-     * @throws IllegalArgumentException if x or y are out of range
-     */
+    /** {@inheritDoc} */
+    public void setEndPoint(Maze.Node endNode) {
+        if (endNode == null) {
+            throw new NullPointerException("Maze.Node cannot be null");
+        } else if (endNode != null && !hasNode(endNode)) {
+            throw new IllegalArgumentException("Maze must contain endpoint");
+        }
+
+        this.endNode = endNode;
+        mustReset = true;
+    }
+
+    /** {@inheritDoc} */
     public void setStartPoint(int x, int y) {
         if (y < 0 || y >= getRows() || x < 0 || x >= getCols()) {
             throw new IllegalArgumentException("Indicies must be in range");
@@ -173,12 +185,19 @@ public class SolvableMaze extends Maze {
         setStartPoint(board[y][x]);
     }
 
-    /**
-     * Update the Maze state
-     * 
-     * @throws IllegalStateException if a parameter is not set, or if the Maze is
-     *                               solved
-     */
+    /** {@inheritDoc} */
+    public void setStartPoint(Maze.Node startNode) {
+        if (startNode == null) {
+            throw new NullPointerException("Maze.Node cannot be null");
+        } else if (startNode != null && !hasNode(startNode)) {
+            throw new IllegalArgumentException("Maze must contain startpoint");
+        }
+
+        this.startNode = startNode;
+        mustReset = true;
+    }
+
+    /** {@inheritDoc} */
     public void update() {
         if (search == null) {
             throw new IllegalStateException("SearchAlgorithm must be set");
@@ -193,77 +212,6 @@ public class SolvableMaze extends Maze {
         visited.addAll(path);
 
         mustReset = mustReset || isSolved();
-    }
-
-    /**
-     * Get the current path
-     * 
-     * @return the current path
-     */
-    public List<Maze.Node> getPath() {
-        return path;
-    }
-
-    /**
-     * Get the visited list
-     * 
-     * @return the visited list
-     */
-    public Set<Maze.Node> getVisited() {
-        return visited;
-    }
-
-    /**
-     * Initialize the Maze board
-     * 
-     * @param numCol  the number of columns
-     * @param numRows the number of rows
-     * @throws IllegalArgumentException if numCol < 0 or numRows < 0
-     */
-    public void resize(int numCol, int numRows) {
-        super.resize(numCol, numRows);
-        if (startNode != null) {
-            setStartPoint(startNode.getX(), startNode.getY());
-        }
-        if (endNode != null) {
-            setEndPoint(numCol - 1, numRows - 1);
-        }
-    }
-
-    /**
-     * Set the end point
-     * 
-     * @param endPoint the end point
-     * @throws NullPointerException     if node is null
-     * @throws IllegalArgumentException if node is not valid
-     */
-    public void setEndPoint(Maze.Node endNode) {
-        if (endNode == null) {
-            throw new NullPointerException("Maze.Node cannot be null");
-        } else if (endNode != null && !hasNode(endNode)) {
-            throw new IllegalArgumentException("Maze must contain endpoint");
-        }
-
-        this.endNode = endNode;
-        mustReset = true;
-    }
-
-    /**
-     * Set the start point
-     * 
-     * @param endPoint the end point
-     * @throws NullPointerException     if node is null
-     * @throws IllegalArgumentException if node is not valid
-     */
-    public void setStartPoint(Maze.Node startNode) {
-        if (startNode == null) {
-            throw new NullPointerException("Maze.Node cannot be null");
-        } else if (startNode != null && !hasNode(startNode)) {
-            throw new IllegalArgumentException("Maze must contain startpoint");
-        }
-
-        this.startNode = startNode;
-        mustReset = true;
     }
 
     // *Private Methods*
@@ -289,7 +237,7 @@ public class SolvableMaze extends Maze {
         return board[y][x] != null && board[y][x].equals(current);
     }
 
-    // instance variables
+    // *Instance Variables*
     protected Maze.Node startNode;
     protected Maze.Node endNode;
 
