@@ -13,7 +13,7 @@ import com.bryce_59.maze.create.*;
  * @author Bryce-59
  * @version 18-03-2024
  */
-public class SolvableMaze extends SimpleMaze implements Solvable {
+public class SolvableMaze extends AbstractMaze implements Solvable, Cloneable {
     // *Constructors*
 
     /**
@@ -101,6 +101,12 @@ public class SolvableMaze extends SimpleMaze implements Solvable {
     }
 
     // *Public Methods*
+
+    /** {@inheritDoc} */
+    @Override
+    public SolvableMaze clone() {
+        return new SolvableMaze(this);
+    }
     
     /** {@inheritDoc} */
     public List<Maze.Node> getPath() {

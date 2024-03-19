@@ -4,13 +4,13 @@ package com.bryce_59.maze.create;
  * @author Bryce-59
  * @version 06-03-2024
  */
-public class SimpleMaze implements Maze {
+public abstract class AbstractMaze implements Maze {
     // *Constructors*
 
     /**
      * Constructor for objects of class Maze
      */
-    public SimpleMaze() {
+    public AbstractMaze() {
         this(DEFAULT_GENERATOR);
     }
 
@@ -19,7 +19,7 @@ public class SimpleMaze implements Maze {
      * 
      * @param generator the maze-generation algorithm to use
      */
-    public SimpleMaze(MazeGenerator generator) {
+    public AbstractMaze(MazeGenerator generator) {
         this(DEFAULT_COL, DEFAULT_ROWS, generator);
     }
 
@@ -29,7 +29,7 @@ public class SimpleMaze implements Maze {
      * @param numCol  the number of columns
      * @param numRows the number of rows
      */
-    public SimpleMaze(int numCol, int numRows) {
+    public AbstractMaze(int numCol, int numRows) {
         this(numCol, numRows, DEFAULT_GENERATOR);
     }
 
@@ -40,7 +40,7 @@ public class SimpleMaze implements Maze {
      * @param numRows   the number of rows
      * @param generator the maze-generation algorithm to use
      */
-    public SimpleMaze(int numCol, int numRows, MazeGenerator generator) {
+    public AbstractMaze(int numCol, int numRows, MazeGenerator generator) {
         this.generator = generator;
         resize(numCol, numRows);
     }
@@ -50,7 +50,7 @@ public class SimpleMaze implements Maze {
      * 
      * @param src the maze to copy
      */
-    public SimpleMaze(SimpleMaze src) {
+    public AbstractMaze(AbstractMaze src) {
         this.generator = src.generator;
         this.board = src.getBoard();
     }
