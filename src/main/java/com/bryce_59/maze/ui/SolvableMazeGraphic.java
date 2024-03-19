@@ -251,6 +251,6 @@ public class SolvableMazeGraphic extends SolvableGraphic implements Maze {
 
     private static final int RECT_X = 20;
     private static final int RECT_Y = 20;
-    private static final int RECT_HEIGHT = 200;
-    private static final int RECT_WIDTH = 200;
+    private static final int RECT_HEIGHT = 400;
+    private static final int RECT_WIDTH = 400;
 }
