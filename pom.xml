@@ -31,7 +31,18 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.5.3</version>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <mainClass>com.bryce_59.maze.ui.DrawMaze</mainClass>
+            </configuration>
+        </plugin>
         </plugins>
     </build>
+
+    
 
 </project>
