@@ -10,7 +10,7 @@ import com.bryce_59.maze.create.Maze;
  * AStarSearch
  * 
  * @author Bryce-59
- * @version 26-02-24
+ * @version 23-08-26
  */
 public class AStarSearch extends SearchAlgorithm {
     /**
@@ -46,7 +46,7 @@ public class AStarSearch extends SearchAlgorithm {
                     + (Math.abs(getEnd().getX() - lhs_prev.getX()) + Math.abs(getEnd().getY() - lhs_prev.getY()));
             int rhs_dist = rhs.size()
                     + (Math.abs(getEnd().getX() - rhs_prev.getX()) + Math.abs(getEnd().getY() - rhs_prev.getY()));
-            return lhs_dist - rhs_dist;
+            return Integer.compare(lhs_dist, rhs_dist);
         }
     }
 

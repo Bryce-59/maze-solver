@@ -2,7 +2,7 @@ package com.bryce_59.maze.create;
 
 /**
  * @author Bryce-59
- * @version 06-03-2024
+ * @version 23-08-2026
  */
 public abstract class AbstractMaze implements Maze {
     // *Constructors*
@@ -81,9 +81,11 @@ public abstract class AbstractMaze implements Maze {
             for (int j = 0; j < numCol; j++) {
                 if (i < numRows - 1 && this.board[i][j].hasEdge(this.board[i + 1][j])) {
                     ret[i][j].addEdge(ret[i + 1][j]);
+                    ret[i + 1][j].addEdge(ret[i][j]);
                 }
                 if (j < numCol - 1 && this.board[i][j].hasEdge(this.board[i][j + 1])) {
                     ret[i][j].addEdge(ret[i][j + 1]);
+                    ret[i][j + 1].addEdge(ret[i][j]);
                 }
                 ret[i][j].setDepth(this.board[i][j].getDepth());
             }

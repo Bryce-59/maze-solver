@@ -5,13 +5,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.bryce_59.maze.create.*;
+import com.bryce_59.maze.create.AbstractMaze;
+import com.bryce_59.maze.create.Maze;
 
 /**
- * Write a description of class SolvableMaze here.
+ * 
+ * A maze that can be solved using a configurable search algorithm.
+ *
+ * The maze maintains a start point, an end point, the current search
+ * path, and the nodes visited during the search.
  * 
  * @author Bryce-59
- * @version 18-03-2024
+ * @version 23-08-2026
  */
 public class SolvableMaze extends AbstractMaze implements Solvable, Cloneable {
     // *Constructors*
@@ -93,10 +98,10 @@ public class SolvableMaze extends AbstractMaze implements Solvable, Cloneable {
         super(src);
         setAlgorithm(src.search);
         if (src.startNode != null) {
-            setStartPoint(src.startNode);
+            setStartPoint(src.startNode.getX(), src.startNode.getY());
         }
-        if (endNode != null) {
-            setEndPoint(src.endNode);
+        if (src.endNode != null) {
+            setEndPoint(src.endNode.getX(), src.endNode.getY());
         }
     }
 
@@ -115,7 +120,7 @@ public class SolvableMaze extends AbstractMaze implements Solvable, Cloneable {
 
     /** {@inheritDoc} */
     public Maze.Node getEndPoint() {
-        return startNode;
+        return endNode;
     }
 
     /** {@inheritDoc} */

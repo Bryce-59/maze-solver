@@ -85,6 +85,7 @@ public class DrawMaze extends JPanel {
           while (!solvable.isSolved()) {
               solvable.update();
           }
+          solvable.repaint();
       }
     });
 

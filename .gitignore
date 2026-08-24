@@ -1,0 +1,18 @@
+# Maven
+target/
+
+# Compiled Java
+*.class
+
+# IDE - VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp

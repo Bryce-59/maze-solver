@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Generate a new Maze with the Growing Tree Algorithm
  * 
  * @author Bryce Richardson
- * @version 06-03-2024
+ * @version 08-23-2026
  */
 public class GrowingTreeGenerator extends MazeGenerator {
     /**
@@ -20,7 +20,7 @@ public class GrowingTreeGenerator extends MazeGenerator {
     public Maze.Node[][] generateMaze(int numCol, int numRows) {
         Maze.Node[][] board = initializeBoard(numCol, numRows);
 
-        if (numCol > 1 && numRows > 1) {
+        if (numCol >= 1 && numRows >= 1) {
             // initialize data structures
             ArrayList<Maze.Node> visited = new ArrayList<>();
 

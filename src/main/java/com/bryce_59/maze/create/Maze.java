@@ -98,7 +98,7 @@ public interface Maze {
         /**
          * Return the y-position of the Maze.Node
          * 
-         * @return the x-position
+         * @return the y-position
          */
         public int getY() {
             return y;
